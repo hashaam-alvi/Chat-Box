@@ -1,0 +1,25 @@
+@import "./node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "./node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "./node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "./node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "./node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import './node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import "./node_modules/@syncfusion/ej2-react-interactive-chat/styles/material.css";
+
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(243, 243, 255);
+}    
+
+.ChatBoxContainer{
+    margin: 0 30px;
+    height: 98vh;
+}
+
+.custom-btn{
+    /* width: 10px;
+    background-color: brown; */
+    
+}
+

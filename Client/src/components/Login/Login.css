@@ -1,0 +1,70 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(243, 243, 255);
+}    
+
+.loginContainer{
+    margin: 0 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginBody{
+    padding: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.Loginheader{
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.boxBody{
+    padding: 3rem;
+    border: 2px solid blue;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.chatHeader{
+    color: blue;
+}
+
+
+@media (max-width: 600px) {
+    .Loginheader{
+        display: none;
+    }
+    .boxBody{
+        /* padding: 5%; */
+        border: 2px solid blue;
+    }
+    .loginBody {
+        flex-direction: column; /* Stacks the H1 and Form vertically */
+        gap: 20px;              /* Adds space between them */
+        text-align: center;
+    }
+
+    /* Optional: Make the Form full width on mobile */
+    .loginBody form {
+        width: 100%;
+        max-width: 300px; /* Keeps it from getting too wide */
+    }
+
+    .Loginheader{
+        margin-bottom: 0px;
+    }
+    
+    .chatHeader{
+        margin-bottom: 3rem;
+        
+    }
+
+}
