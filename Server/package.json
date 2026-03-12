@@ -6,14 +6,15 @@
     "pg-promise": "^12.6.2",
     "socket.io": "^4.8.3"
   },
+  "author": "Hashaam",
+  "license": "ISC",
   "name": "server",
   "version": "1.0.0",
   "description": "Server for Chat Box",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Hashaam",
-  "license": "ISC"
+  }
 }
