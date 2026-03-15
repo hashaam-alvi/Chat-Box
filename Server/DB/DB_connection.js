@@ -1,3 +1,6 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
 const psql = require("pg-promise")();
 
 const db = psql( process.env.POSTGRESQL_URL );

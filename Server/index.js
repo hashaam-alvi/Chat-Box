@@ -1,12 +1,14 @@
-const express = require('express');
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, '../') })
+const express = require("express");
 const app = express();
-const server = require('http').createServer(app);
+const server = require("http").createServer(app);
 const cors = require("cors");
 const { Server } = require("socket.io");
-const users = require("./models/users")
+const users = require("./models/users");
 
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
 // const io = require('socket.io')(server);
 /* const io = new Server(server, {
@@ -18,19 +20,15 @@ app.use(express.json());
   },
 }); */
 
-
 const io = new Server(server, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "https://chat-box-lime-pi.vercel.app"
-    ]
+    origin: ["http://localhost:5173", "https://chat-box-lime-pi.vercel.app"],
   },
-  transports: ["websocket","polling"]
+  transports: ["websocket", "polling"],
 });
 
-io.on('connection', (socket) => { 
-    console.log("User connected:", socket.id);
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
 
   socket.on("sendMessage", (data) => {
     console.log(data);
@@ -42,7 +40,7 @@ io.on('connection', (socket) => {
   socket.on("disconnect", () => {
     console.log("User disconnected");
   });
- });
+});
 
 const PORT = process.env.PORT || 5000;
 // const PORT = process.env.PORT;
@@ -51,6 +49,5 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-
-app.use('/login',users);
-app.use('/',users);
+app.use("/login", users);
+app.use("/", users);
