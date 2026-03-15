@@ -8,7 +8,7 @@ import { useState } from "react";
 import "./Login.css";
 
 
-export default function LoginForm({ formData, handleInputChange, handleSubmit }) {
+export default function LoginForm({ formData, handleInputChange, handleSubmit, isError }) {
     const [show, setShow] = useState(false);
   return (
     <div className="loginContainer">
@@ -39,6 +39,7 @@ export default function LoginForm({ formData, handleInputChange, handleSubmit })
             id="username"
             name="username"
             value={formData.username}
+            
           />
 
           <TextField
@@ -60,6 +61,8 @@ export default function LoginForm({ formData, handleInputChange, handleSubmit })
             id="password"
             name="password"
             value={formData.password}
+            error={isError}
+            helperText={isError ? "Invalid credentials" : ""}
           />
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 2 }} >

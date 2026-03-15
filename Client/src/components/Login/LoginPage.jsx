@@ -1,10 +1,11 @@
 import { useState } from "react";
 import LoginForm from "./LoginForm.jsx";
 import axios from "axios";
+import BASE_URL from "../config.js"
 
 
 export default function LoginPage({setUser}) {
-
+  let [isError, setIsError] = useState(false);
   let [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -20,7 +21,7 @@ export default function LoginPage({setUser}) {
     event.preventDefault();
     const { username , password } = formData;
 
-    const res = await axios.post("http://localhost:5000/login", {username, password})
+    const res = await axios.post(`${BASE_URL}/login`, {username, password})
     const data = res.data;
 
     if (data.success) {
@@ -29,12 +30,13 @@ export default function LoginPage({setUser}) {
       setUser(data.user);
     } else {
       console.log("Invalid credentials");
+      setIsError(true);
     }
 
   };
 
 
   return (
-    <LoginForm formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+    <LoginForm formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSubmit} isError={isError} />
   );
 }
