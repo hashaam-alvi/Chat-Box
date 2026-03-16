@@ -10,16 +10,6 @@ const users = require("./models/users");
 app.use(cors());
 app.use(express.json());
 
-// const io = require('socket.io')(server);
-/* const io = new Server(server, {
-  cors: {
-    // origin: "*",
-    origin: "https://chat-box-production-ecb4.up.railway.app",
-    //  origin: "https://chat-box-lime-pi.vercel.app",
-    //  methods: ["GET", "POST"],
-  },
-}); */
-
 const io = new Server(server, {
   cors: {
     origin: ["http://localhost:5173", "https://chat-box-lime-pi.vercel.app"],
@@ -50,4 +40,5 @@ server.listen(PORT, () => {
 });
 
 app.use("/login", users);
+app.use("/signup", users);
 app.use("/", users);

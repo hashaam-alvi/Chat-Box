@@ -1,11 +1,4 @@
-import {
-  Box,
-  TextField,
-  InputAdornment,
-  IconButton,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Box, TextField, InputAdornment, IconButton, Button, Stack, } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -14,14 +7,11 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useState } from "react";
 import "./Login.css";
 
-export default function LoginForm({ formData, handleInputChange, handleSubmit, isError, handleSignup }) {
+export default function SignUpForm({ formData, handleInputChange, handleSubmit, isError, handleLogin }) {
   const [show, setShow] = useState(false);
-
-  
-
   return (
     <div className="loginContainer">
-      <h1 className="Loginheader">Login</h1>
+      <h1 className="Loginheader">Sign-Up</h1>
       <div className="loginBody">
         <h1 className="chatHeader">Chat Box</h1>
         <Box
@@ -35,7 +25,6 @@ export default function LoginForm({ formData, handleInputChange, handleSubmit, i
             width: { xs: "100%", sm: "auto" },
           }}
         >
-          {/* <h1>Wellcome</h1> */}
           <TextField
             label="User Name"
             required
@@ -52,7 +41,6 @@ export default function LoginForm({ formData, handleInputChange, handleSubmit, i
             id="username"
             name="username"
             value={formData.username}
-            error={isError}
           />
 
           <TextField
@@ -75,15 +63,41 @@ export default function LoginForm({ formData, handleInputChange, handleSubmit, i
             name="password"
             value={formData.password}
             error={isError}
-            helperText={isError ? "Invalid credentials" : ""}
           />
 
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mt: 2 }} >
-            <Button size="large" variant="outlined" startIcon={<PersonAddIcon />} onClick={handleSignup} >
-              Sign-up
+          <TextField
+            label="Confirm Password"
+            type={show ? "text" : "password"}
+            required
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShow(!show)} edge="end">
+                      {show ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+            onChange={handleInputChange}
+            id="confirmpassword"
+            name="confirmpassword"
+            value={formData.confirmpassword}
+            error={isError}
+            helperText={isError ? "Password didn't Matched" : ""}
+          />
+
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            sx={{ mt: 2 }}
+          >
+            <Button size="large" variant="contained"   endIcon={<LoginIcon />}  onClick={handleLogin}>
+              Already have an account
             </Button>
-            <Button size="large" variant="contained" type="submit" endIcon={<LoginIcon />} >
-              Login
+            <Button size="large"  variant="outlined" type="submit" startIcon={<PersonAddIcon />}>
+              Sign-up
             </Button>
           </Stack>
         </Box>

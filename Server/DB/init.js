@@ -1,4 +1,4 @@
-const db = require('./DB_connection');
+const db = require("./DB_connection");
 
 async function createTables() {
   try {
@@ -6,7 +6,8 @@ async function createTables() {
     await db.none(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL
+        username Varchar NOT NULL,
+        password Varchar(255),
       );
     `);
 
