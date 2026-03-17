@@ -1,11 +1,11 @@
-import ChatHome from "./ChatHome";
+import ChatBoxPage from "./ChatBoxPage";
 import { io } from "socket.io-client";
 import { useEffect, useRef } from "react";
-
+import ChatSideBar from "./ChatSideBar";
 
 export default function ChatBoxHome() {
   const socketRef = useRef(null);
-  
+
   useEffect(() => {
     // socketRef.current = io("http://localhost:5000");
     socketRef.current = io("https://chat-box-production-ecb4.up.railway.app");
@@ -23,16 +23,16 @@ export default function ChatBoxHome() {
         socketRef.current.disconnect();
       }
     };
-
   }, []);
-  
+
   function sendMessage(message) {
     socketRef.current.emit("sendMessage", message);
   }
 
-  return(
+  return (
     <>
-      <ChatHome/>
+      
+      <ChatBoxPage />
     </>
   );
 }

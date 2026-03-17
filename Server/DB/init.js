@@ -17,8 +17,8 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         text TEXT NOT NULL,
         user_id INT REFERENCES users(id),
-        created_at TIMESTAMP DEFAULT NOW()
-      );
+        room_id INT REFERENCES rooms(id),
+        created_at TIMESTAMP DEFAULT NOW(),
     `);
 
     console.log("Tables created successfully!");

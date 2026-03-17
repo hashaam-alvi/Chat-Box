@@ -10,16 +10,68 @@ body, html {
     margin: 0;
     padding: 0;
     background-color: rgb(243, 243, 255);
-}    
-
-.ChatBoxContainer{
-    margin: 0 30px;
-    height: 98vh;
 }
 
-.custom-btn{
-    /* width: 10px;
-    background-color: brown; */
-    
+.ChatBoxContainer {
+    display: flex;
+    height: 91vh;
+    width: 100%;
+    margin: 0;
+
 }
 
+.chat-header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.custom-sidebar {
+    width: 280px;
+    height: 100vh;
+    background: #1e1e2f;
+    color: white;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+/* Desktop behavior (push) */
+.custom-sidebar.desktop {
+    position: relative;
+    left: 0;
+}
+
+/* Mobile behavior (overlay) */
+.custom-sidebar.mobile {
+    position: fixed;
+    top: 0;
+    left: -100%;
+}
+
+.custom-sidebar.mobile.open {
+    left: 0;
+}
+
+/* Overlay with blur */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+
+.chat-content {
+    flex: 1;
+    height: 100%;
+}
+
+@media (max-width: 650px) {
+    .chat-content.shifted {
+        margin-left: 0;
+    }
+}
