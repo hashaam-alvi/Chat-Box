@@ -1,10 +1,13 @@
 import ChatBoxPage from "./ChatBoxPage";
 import { io } from "socket.io-client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState  } from "react";
 import ChatSideBar from "./ChatSideBar";
+import "./style.css"
 
 export default function ChatBoxHome({handleLogout}) {
   const socketRef = useRef(null);
+   const [isOpen, setIsOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
 
   useEffect(() => {
     // socketRef.current = io("http://localhost:5000");
@@ -25,14 +28,32 @@ export default function ChatBoxHome({handleLogout}) {
     };
   }, []);
 
+   useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 650;
+      setIsMobile(mobile);
+
+      if (mobile) setIsOpen(false);
+      else setIsOpen(true);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   function sendMessage(message) {
     socketRef.current.emit("sendMessage", message);
   }
 
   return (
-    <>
-      
-      <ChatBoxPage handleLogout={handleLogout}/>
-    </>
+    <div className="ChatBoxHome">
+       <ChatSideBar isOpen={isOpen} isMobile={isMobile} toggleSidebar={toggleSidebar} handleLogout={handleLogout}/>
+       <ChatBoxPage isMobile={isMobile}  toggleSidebar={toggleSidebar} isOpen={isOpen}/>
+    </div>
   );
 }

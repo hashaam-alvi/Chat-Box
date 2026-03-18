@@ -1,36 +1,11 @@
-import {
-  ChatUIComponent,
-  MessagesDirective,
-  MessageDirective,
-} from "@syncfusion/ej2-react-interactive-chat";
+import { ChatUIComponent, MessagesDirective, MessageDirective,  } from "@syncfusion/ej2-react-interactive-chat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./style.css";
-import ChatSideBar from "./ChatSideBar"
-import { useState } from "react";
 
-export default function ChatBoxPage({handleLogout}) {
+export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen }) {
   const storedUser = localStorage.getItem("user");
   const userData = storedUser ? JSON.parse(storedUser) : "Anonymous";
-  const [isOpen, setIsOpen] = useState(true); 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
-
-React.useEffect(() => {
-  const handleResize = () => {
-    const mobile = window.innerWidth < 650;
-    setIsMobile(mobile);
-
-    if (mobile) {
-      setIsOpen(false); 
-    } else {
-      setIsOpen(true);  
-    }
-  };
-
-  handleResize(); 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const currentUserModel = {
     // id: "user1",
@@ -63,23 +38,18 @@ React.useEffect(() => {
     "Sounds good!",
     "Hello, How's everyone",
   ];
+
   const statusModel = {
     iconCss: "e-icons e-chat-seen",
     tooltip: "Seen",
     // text: 'Seen',
   };
 
-  const toggleSidebar = () => {
-    setIsOpen(prev => !prev);
-  };  
-
-
 
   return (
     <div className="ChatBoxContainer">
-      <ChatSideBar isOpen={isOpen} isMobile={isMobile} toggleSidebar={toggleSidebar} handleLogout={handleLogout}
-      />
       <div className={`chat-content ${isOpen ? "shifted" : ""}`}>
+      {/* <div className={"chat-content"}> */}
         <div className="chat-header">
           <h3>ChatBox</h3>
           {isMobile && (

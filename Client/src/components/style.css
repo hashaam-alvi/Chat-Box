@@ -12,13 +12,14 @@ body, html {
     background-color: rgb(243, 243, 255);
 }
 
-.ChatBoxContainer {
+.ChatBoxContainer, .ChatBoxHome {
     display: flex;
-    height: 91vh;
+    height: 100vh;
     width: 100%;
     margin: 0;
 
 }
+
 
 .chat-header{
     display: flex;
@@ -71,6 +72,8 @@ body, html {
 .chat-content {
     flex: 1;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 650px) {
