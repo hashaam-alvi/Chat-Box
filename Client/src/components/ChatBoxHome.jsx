@@ -14,6 +14,10 @@ export default function ChatBoxHome({handleLogout}) {
   const storedUser = JSON.parse(localStorage.getItem("user"));
 
 useEffect(() => {
+  console.log("Messages updated:", messages);
+}, [messages]);
+
+useEffect(() => {
   socketRef.current = io(BASE_URL);
 
   socketRef.current.on("connect", () => {
