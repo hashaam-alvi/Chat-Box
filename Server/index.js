@@ -6,6 +6,7 @@ const server = require("http").createServer(app);
 const cors = require("cors");
 const { Server } = require("socket.io");
 const users = require("./models/users");
+const rooms = require("./models/rooms");
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +24,6 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", (data) => {
     console.log(data);
 
-    // broadcast message
     io.emit("receiveMessage", data);
   });
 
@@ -39,6 +39,9 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.use("/login", users);
-app.use("/signup", users);
 app.use("/", users);
+app.use("/", rooms);
+
+app.use("/", (req , res)=>{
+  res.send("at Default Root")
+})

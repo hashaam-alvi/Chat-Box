@@ -32,7 +32,7 @@ router.post("/signup", async(req, res) => {
 
 });
 
-router.get("/", (req,res) => {
+router.get("/users", (req,res) => {
     res.send("Server IS live/users.js");
 });
 

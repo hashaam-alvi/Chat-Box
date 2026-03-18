@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { useEffect, useRef } from "react";
 import ChatSideBar from "./ChatSideBar";
 
-export default function ChatBoxHome() {
+export default function ChatBoxHome({handleLogout}) {
   const socketRef = useRef(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function ChatBoxHome() {
   return (
     <>
       
-      <ChatBoxPage />
+      <ChatBoxPage handleLogout={handleLogout}/>
     </>
   );
 }

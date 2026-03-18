@@ -28,13 +28,13 @@ body, html {
 
 .boxBody{
     padding: 3rem;
-    border: 2px solid blue;
+    border: 2px solid #007bff;
     border-radius: 25px;
     text-align: center;
 }
 
 .chatHeader{
-    color: blue;
+    color: #007bff;
 }
 
 
@@ -44,7 +44,7 @@ body, html {
     }
     .boxBody{
         /* padding: 5%; */
-        border: 2px solid blue;
+        border: 2px solid #007bff;
     }
     .loginBody {
         flex-direction: column; /* Stacks the H1 and Form vertically */

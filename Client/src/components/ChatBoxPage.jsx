@@ -9,7 +9,7 @@ import "./style.css";
 import ChatSideBar from "./ChatSideBar"
 import { useState } from "react";
 
-export default function ChatBoxPage() {
+export default function ChatBoxPage({handleLogout}) {
   const storedUser = localStorage.getItem("user");
   const userData = storedUser ? JSON.parse(storedUser) : "Anonymous";
   const [isOpen, setIsOpen] = useState(true); 
@@ -77,7 +77,7 @@ React.useEffect(() => {
 
   return (
     <div className="ChatBoxContainer">
-      <ChatSideBar isOpen={isOpen} isMobile={isMobile} toggleSidebar={toggleSidebar}
+      <ChatSideBar isOpen={isOpen} isMobile={isMobile} toggleSidebar={toggleSidebar} handleLogout={handleLogout}
       />
       <div className={`chat-content ${isOpen ? "shifted" : ""}`}>
         <div className="chat-header">

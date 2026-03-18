@@ -11,9 +11,14 @@ function App() {
  
  const [user, setUser] = useState(JSON.parse(storedUser)); 
 
+   let handleLogout = ()=>{
+    localStorage.removeItem("user");
+    setUser(null);
+  }
+
 
   if (user) {
-    return <ChatBoxHome  />;
+    return <ChatBoxHome  handleLogout={handleLogout} />;
   }
 
   return (
