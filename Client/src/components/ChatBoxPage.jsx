@@ -63,6 +63,7 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
           )}
         </div>
         <ChatUIComponent
+          key={messages.length}
           user={currentUserModel}
           messageToolbarSettings={messageToolbarSettings}
           suggestions={suggestions}
