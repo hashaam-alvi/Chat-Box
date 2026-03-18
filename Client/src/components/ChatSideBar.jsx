@@ -3,7 +3,7 @@ import "./style.css";
 import axios from "axios";
 import BASE_URL from "./config.js"
 
-export default function ChatSideBar({ isOpen, isMobile, toggleSidebar,handleLogout }) {
+export default function ChatSideBar({ isOpen, isMobile, toggleSidebar,handleLogout,setActiveRoom }) {
 const [showModal, setShowModal] = useState(false);
 const [rooms, setRooms] = useState([]);
  let [formData, setFormData] = useState({ chatName: "" });
@@ -12,7 +12,6 @@ const [rooms, setRooms] = useState([]);
      try {
        const res = await axios.get(`${BASE_URL}/getRooms`); 
        const data = res.data;
-       console.log("in fetchRooms",data.rooms);
        
        if (data.success) {
          setRooms(data.rooms);
@@ -70,7 +69,7 @@ const handleCreateChat = async () =>{
             <div 
               key={room.id} 
               className="chat-item" 
-              // onClick={() => onSelectRoom(room)} // 4. Pass selected room to parent
+              onClick={() => setActiveRoom(room)} 
             >
               {room.chatname.toUpperCase()}
             </div>

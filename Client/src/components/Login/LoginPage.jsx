@@ -28,8 +28,9 @@ export default function LoginPage({setUser}) {
     const data = res.data;
 
     if (data.success) {
-      console.log("Login successful", data.user);
+      // console.log("Login successful", data.user);
       localStorage.setItem("user", JSON.stringify(data.user));
+      // localStorage.setItem("id", JSON.stringify(data.id));
       setUser(data.user);
     } else {
       setIsError(true);

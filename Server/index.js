@@ -7,6 +7,7 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const users = require("./models/users");
 const rooms = require("./models/rooms");
+const db = require("./DB/DB_connection");
 
 app.use(cors());
 app.use(express.json());
@@ -21,10 +22,28 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  socket.on("sendMessage", (data) => {
-    console.log(data);
+  socket.on("joinRoom", (roomId) => {
+    socket.join(roomId);
+    console.log("in index.js joinroom")
+  });
 
-    io.emit("receiveMessage", data);
+  socket.on("getMessages", async (roomId) => {
+    console.log("in getmessages socket",roomId);
+    const messages = await db.any(` SELECT m.*, u.username  FROM messages m  JOIN users u ON m.user_id = u.id  WHERE m.room_id = $1  ORDER BY m.created_at ASC `, [roomId]);
+    
+
+    socket.emit("previousMessages", messages);
+  });
+
+  socket.on("sendMessage", async (msg) => {
+    const saved = await db.one(
+      `INSERT INTO messages(text, user_id, room_id)
+     VALUES($1, $2, $3)
+     RETURNING *`,
+      [msg.text, msg.user_id, msg.room_id],
+    );
+
+    io.to(msg.room_id).emit("receiveMessage", saved);
   });
 
   socket.on("disconnect", () => {

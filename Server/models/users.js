@@ -4,7 +4,7 @@ const db = require("../DB/DB_connection");
 
 router.post("/login", async(req, res) => {
     const {username , password} = req.body;
-    const user = await db.oneOrNone("Select username,password from users Where username = $1",[username]);
+    const user = await db.oneOrNone("Select id,username,password from users Where username = $1",[username]);
 
     if (!user) {
       return res.json({ success: false, message: "User not found" });
@@ -16,7 +16,7 @@ router.post("/login", async(req, res) => {
 
     res.json({
         success:true,
-        user: {username: user.username},
+        user: {username: user.username , id:user.id},
     });
 });
 

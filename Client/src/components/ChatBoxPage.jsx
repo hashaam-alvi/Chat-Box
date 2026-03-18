@@ -3,13 +3,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./style.css";
 
-export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen }) {
+export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom, messages, sendMessage }) {
   const storedUser = localStorage.getItem("user");
   const userData = storedUser ? JSON.parse(storedUser) : "Anonymous";
 
   const currentUserModel = {
-    // id: "user1",
-    id: "user1",
+    id: userData.id,
     user: userData.username,
     statusIconCss: "e-icons e-user-online",
   };
@@ -45,11 +44,10 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen }) {
     // text: 'Seen',
   };
 
-
   return (
     <div className="ChatBoxContainer">
       <div className={`chat-content ${isOpen ? "shifted" : ""}`}>
-      {/* <div className={"chat-content"}> */}
+        {/* <div className={"chat-content"}> */}
         <div className="chat-header">
           <h3>ChatBox</h3>
           {isMobile && (
@@ -66,8 +64,9 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen }) {
           // headerToolbar={headerToolbar}
           headerText="ChatBox"
           showHeader={false}
+          onMessageSend={(args) => sendMessage(args.message.text)}
         >
-          <MessagesDirective>
+          {/* <MessagesDirective>
             <MessageDirective
               text="This os"
               author={currentUserModel}
@@ -86,6 +85,19 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen }) {
               author={currentUserModel}
               status={statusModel}
             ></MessageDirective>
+          </MessagesDirective> */}
+
+          <MessagesDirective>
+            {messages.map((msg, index) => (
+              <MessageDirective
+                key={index}
+                text={msg.text}
+                author={{
+                  id: msg.user_id,
+                  user: msg.username || "User",
+                }}
+              />
+            ))}
           </MessagesDirective>
         </ChatUIComponent>
       </div>
