@@ -13,8 +13,6 @@ export default function ChatBoxHome({handleLogout}) {
   const [messages, setMessages] = useState([]);
   const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  console.log(activeRoom);
-
 useEffect(() => {
   socketRef.current = io(BASE_URL);
 
@@ -36,8 +34,8 @@ useEffect(() => {
 }, []);
 
   useEffect(() => {
-    if (!activeRoom  || !socketRef.current ) return;
     setMessages([]); 
+    if (!activeRoom  || !socketRef.current ) return;
     console.log("in useeffect getmessages is called")
 
     const emitData = () => {
@@ -56,14 +54,23 @@ useEffect(() => {
 
 
 
- function sendMessage(message) {
-  if (!activeRoom || !socketRef.current) return;
+ function sendMessage(messageText) {
+  // 1. Basic Safety checks
+  if (!activeRoom || !socketRef.current || !messageText.trim()) return;
 
-  socketRef.current.emit("sendMessage", {
-    text: message,
+  // 2. Prepare the payload
+  const messageData = {
+    text: messageText,
     room_id: activeRoom.id,
-    user_id: storedUser.id,
-  });
+    user_id: storedUser.id, // Ensure storedUser.id exists!
+    username: storedUser.username, // Helpful for the UI to show who sent it
+    created_at: new Date().toISOString()
+  };
+
+  // 3. Emit to Server
+  socketRef.current.emit("sendMessage", messageData);
+  
+  console.log("Message sent to room:", activeRoom.id);
 }
 
   useEffect(() => {

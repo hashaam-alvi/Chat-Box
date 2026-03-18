@@ -44,6 +44,12 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
     // text: 'Seen',
   };
 
+  const formattedMessages = messages.map(msg => ({
+    text: msg.text,
+    author: { text: msg.username || 'User', id: msg.user_id },
+    createdAt: new Date(msg.created_at)
+}));
+
   return (
     <div className="ChatBoxContainer">
       <div className={`chat-content ${isOpen ? "shifted" : ""}`}>
@@ -64,7 +70,11 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
           // headerToolbar={headerToolbar}
           headerText="ChatBox"
           showHeader={false}
-          onMessageSend={(args) => sendMessage(args.message.text)}
+          messageSend={(args) => {
+            sendMessage(args.message.text);
+            args.cancel = true; 
+          }}
+          messages={formattedMessages} 
         >
           {/* <MessagesDirective>
             <MessageDirective
