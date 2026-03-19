@@ -50,12 +50,15 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
     createdAt: new Date(msg.created_at)
 }));
 
+  const roomName = activeRoom ? activeRoom.chatname : "ChatBox";
+
+
   return (
     <div className="ChatBoxContainer">
       <div className={`chat-content ${isOpen ? "shifted" : ""}`}>
         {/* <div className={"chat-content"}> */}
         <div className="chat-header">
-          <h3>ChatBox</h3>
+          <h3>{roomName.toUpperCase()}</h3>
           {isMobile && (
             <button onClick={toggleSidebar} className="menu-btn">
               ☰
@@ -63,13 +66,13 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
           )}
         </div>
         <ChatUIComponent
-          key={messages.length}
+          // key={messages.length}
           user={currentUserModel}
           messageToolbarSettings={messageToolbarSettings}
           suggestions={suggestions}
           autoScrollToBottom={true}
           // headerToolbar={headerToolbar}
-          headerText="ChatBox"
+          // headerText="ChatBox"
           showHeader={false}
           messageSend={(args) => {
             sendMessage(args.message.text);

@@ -13,9 +13,11 @@ export default function ChatBoxHome({handleLogout}) {
   const [messages, setMessages] = useState([]);
   const storedUser = JSON.parse(localStorage.getItem("user"));
 
-useEffect(() => {
-  console.log("Messages updated:", messages);
-}, [messages]);
+/* useEffect(() => {
+  console.log("Messages updated:", activeRoom);
+}, [messages]); */
+
+
 
 useEffect(() => {
   socketRef.current = io(BASE_URL);
@@ -40,21 +42,20 @@ useEffect(() => {
   useEffect(() => {
     setMessages([]); 
     if (!activeRoom  || !socketRef.current ) return;
-    console.log("in useeffect getmessages is called")
-
+    
     const emitData = () => {
-    console.log("Emitting joinRoom for:", activeRoom.id);
-    socketRef.current.emit("joinRoom", activeRoom.id);
-    socketRef.current.emit("getMessages", activeRoom.id);
-  };
-
-  if (socketRef.current.connected) {
-    emitData();
-  } else {
-    // If not connected yet, wait for the connect event
-    socketRef.current.once("connect", emitData);
-  }
+      socketRef.current.emit("joinRoom", activeRoom.id);
+      socketRef.current.emit("getMessages", activeRoom.id);
+    };
+    
+    if (socketRef.current.connected) {
+      emitData();
+    } else {
+      // If not connected yet, wait for the connect event
+      socketRef.current.once("connect", emitData);
+    }
   }, [activeRoom]);
+  
 
 
 
@@ -74,7 +75,7 @@ useEffect(() => {
   // 3. Emit to Server
   socketRef.current.emit("sendMessage", messageData);
   
-  console.log("Message sent to room:", activeRoom.id);
+  // console.log("Message sent to room:", activeRoom.id);
 }
 
   useEffect(() => {
