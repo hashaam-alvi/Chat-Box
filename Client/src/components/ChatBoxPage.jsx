@@ -32,9 +32,19 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
 
     itemClicked: (args) => {
       if (args.item.prefixIcon === 'e-icons e-chat-trash'){
-        console.log(args.message.originalId);
+         const dbId = args.message.originalId 
+              ?? parseInt(args.message.id?.replace("msg_", ""));
+
+    if (!dbId) {
+      console.error("ID missing!", args.message);
+      return;
+    }
+
+    deleteMessage(dbId);
+    args.cancel = true;
+        /* console.log(args.message.originalId);
         deleteMessage(args.message.originalId)
-        args.cancel = true;
+         args.cancel = true;*/
       }
     },
 
@@ -57,7 +67,7 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
   const formattedMessages = messages.map((msg) =>( {
     // id: `msg_${msg.id}`,
     id: msg.id,              
-    originalId: msg.originalId,
+    // originalId: msg.originalId,
     text: msg.text,
     author: { text: msg.username || 'User', id: msg.user_id },
     createdAt: msg.created_at
@@ -116,7 +126,7 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
           </MessagesDirective> */}
 
           <MessagesDirective>
-            {messages.map((msg, index) => (
+            {/* {messages.map((msg, index) => (
               <MessageDirective
                 key={index}
                 text={msg.text}
@@ -125,7 +135,7 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
                   user: msg.username || "User",
                 }}
               />
-            ))}
+            ))} */}
           </MessagesDirective>
         </ChatUIComponent>
       </div>

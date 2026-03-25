@@ -37,8 +37,8 @@ useEffect(() => {
   socketRef.current.on("previousMessages", (msgs) => {
   const formatted = msgs.map(msg => ({
     ...msg,
-    originalId: msg.id,        // ✅ store DB id
-    id: `msg_${msg.id}`        // ✅ safe for Syncfusion
+    originalId: msg.id,        
+    id: `msg_${msg.id}`        
   }));
 
   setMessages(formatted);
@@ -90,8 +90,8 @@ socketRef.current.on("receiveMessage", (msg) => {
   const messageData = {
     text: messageText,
     room_id: activeRoom.id,
-    user_id: storedUser.id, // Ensure storedUser.id exists!
-    username: storedUser.username, // Helpful for the UI to show who sent it
+    user_id: storedUser.id, 
+    username: storedUser.username, 
     created_at: new Date().toISOString()
   };
 
