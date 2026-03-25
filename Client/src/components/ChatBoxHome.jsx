@@ -26,12 +26,38 @@ useEffect(() => {
     console.log("Connected");
   });
 
-  socketRef.current.on("previousMessages", (msgs) => {
+/*   socketRef.current.on("previousMessages", (msgs) => {
     setMessages(msgs);
   });
 
   socketRef.current.on("receiveMessage", (msg) => {
     setMessages((prev) => [...prev, msg]);
+  }); */
+
+  socketRef.current.on("previousMessages", (msgs) => {
+  const formatted = msgs.map(msg => ({
+    ...msg,
+    originalId: msg.id,        // ✅ store DB id
+    id: `msg_${msg.id}`        // ✅ safe for Syncfusion
+  }));
+
+  setMessages(formatted);
+});
+
+socketRef.current.on("receiveMessage", (msg) => {
+  const formatted = {
+    ...msg,
+    originalId: msg.id,
+    id: `msg_${msg.id}`
+  };
+
+  setMessages((prev) => [...prev, formatted]);
+});
+
+  socketRef.current.on("messageDeleted", ({ id }) => {
+    setMessages(prev =>
+      prev.filter(msg => msg.originalId !== id)
+    );
   });
 
   return () => {
@@ -51,7 +77,6 @@ useEffect(() => {
     if (socketRef.current.connected) {
       emitData();
     } else {
-      // If not connected yet, wait for the connect event
       socketRef.current.once("connect", emitData);
     }
   }, [activeRoom]);
@@ -77,11 +102,17 @@ useEffect(() => {
 function deleteMessage(messageID) {
  if (!activeRoom || !socketRef.current || !messageID) return;
 
+ setMessages(prev =>
+    prev.filter(msg => msg.originalId !== messageID)
+  );
+
  const messageData = {
   id: messageID,
   userId: storedUser.id,
+  roomId: activeRoom.id,
  }
-console.log(storedUser.id);
+
+console.log(activeRoom.id);
  socketRef.current.emit("deleteMessage", messageData);
  
 }

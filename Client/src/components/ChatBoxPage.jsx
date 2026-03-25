@@ -55,8 +55,9 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
   };
 
   const formattedMessages = messages.map((msg) =>( {
-    id: `msg_${msg.id}`,
-    originalId: msg.id,
+    // id: `msg_${msg.id}`,
+    id: msg.id,              
+    originalId: msg.originalId,
     text: msg.text,
     author: { text: msg.username || 'User', id: msg.user_id },
     createdAt: msg.created_at
