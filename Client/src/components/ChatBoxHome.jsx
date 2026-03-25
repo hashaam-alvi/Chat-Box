@@ -60,10 +60,8 @@ useEffect(() => {
 
 
  function sendMessage(messageText) {
-  // 1. Basic Safety checks
   if (!activeRoom || !socketRef.current || !messageText.trim()) return;
 
-  // 2. Prepare the payload
   const messageData = {
     text: messageText,
     room_id: activeRoom.id,
@@ -72,10 +70,15 @@ useEffect(() => {
     created_at: new Date().toISOString()
   };
 
-  // 3. Emit to Server
   socketRef.current.emit("sendMessage", messageData);
   
-  // console.log("Message sent to room:", activeRoom.id);
+}
+
+function deleteMessage(messageID) {
+ if (!activeRoom || !socketRef.current || !messageID) return;
+
+ socketRef.current.emit("deleteMessage", messageID);
+ 
 }
 
   useEffect(() => {
@@ -101,7 +104,7 @@ useEffect(() => {
   return (
     <div className="ChatBoxHome">
        <ChatSideBar isOpen={isOpen} isMobile={isMobile} toggleSidebar={toggleSidebar} handleLogout={handleLogout} setActiveRoom={setActiveRoom}  />
-       <ChatBoxPage isMobile={isMobile}  toggleSidebar={toggleSidebar} isOpen={isOpen} activeRoom ={activeRoom} messages={messages} sendMessage={sendMessage} />
+       <ChatBoxPage isMobile={isMobile}  toggleSidebar={toggleSidebar} isOpen={isOpen} activeRoom ={activeRoom} messages={messages} sendMessage={sendMessage} deleteMessage={deleteMessage} />
     </div>
   );
 }

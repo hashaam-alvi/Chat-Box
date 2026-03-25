@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./style.css";
 
-export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom, messages, sendMessage }) {
+export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoom, messages, sendMessage, deleteMessage }) {
   const storedUser = localStorage.getItem("user");
   const userData = storedUser ? JSON.parse(storedUser) : "Anonymous";
 
@@ -29,13 +29,23 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
       { type: "Button", iconCss: "e-icons e-chat-pin", tooltip: "Pin" },
       { type: "Button", iconCss: "e-icons e-chat-trash", tooltip: "Delete" },
     ],
+
+    itemClicked: (args) => {
+      if (args.item.prefixIcon === 'e-icons e-chat-trash'){
+        console.log(args.message.originalId);
+        deleteMessage(args.message.originalId)
+        args.cancel = true;
+      }
+    },
+
     width: "100%",
   };
 
   const suggestions = [
     "Okay will check it",
     "Sounds good!",
-    "Hello, How's everyone",
+    new Date().toLocaleTimeString(),
+
   ];
 
   const statusModel = {
@@ -44,11 +54,14 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen,activeRoom
     // text: 'Seen',
   };
 
-  const formattedMessages = messages.map(msg => ({
+  const formattedMessages = messages.map((msg) =>( {
+    id: `msg_${msg.id}`,
+    originalId: msg.id,
     text: msg.text,
     author: { text: msg.username || 'User', id: msg.user_id },
-    createdAt: new Date(msg.created_at)
+    createdAt: msg.created_at
 }));
+    
 
   const roomName = activeRoom ? activeRoom.chatname : "ChatBox";
 
