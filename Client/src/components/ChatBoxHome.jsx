@@ -102,9 +102,9 @@ socketRef.current.on("receiveMessage", (msg) => {
 function deleteMessage(messageID) {
  if (!activeRoom || !socketRef.current || !messageID) return;
 
- setMessages(prev =>
-    prev.filter(msg => msg.originalId !== messageID)
-  );
+//  setMessages(prev =>
+//     prev.filter(msg => msg.originalId !== messageID)
+//   );
 
  const messageData = {
   id: messageID,
