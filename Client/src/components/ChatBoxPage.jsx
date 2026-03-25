@@ -69,7 +69,7 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
     id: msg.id,              
     // originalId: msg.originalId,
     text: msg.text,
-    author: { text: msg.username || 'User', id: msg.user_id },
+    author: { user: msg.username || 'User', id: msg.user_id },
     createdAt: msg.created_at
 }));
     
