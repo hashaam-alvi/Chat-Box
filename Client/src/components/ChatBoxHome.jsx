@@ -77,7 +77,12 @@ useEffect(() => {
 function deleteMessage(messageID) {
  if (!activeRoom || !socketRef.current || !messageID) return;
 
- socketRef.current.emit("deleteMessage", messageID);
+ const messageData = {
+  id: messageID,
+  userId: storedUser.id,
+ }
+console.log(storedUser.id);
+ socketRef.current.emit("deleteMessage", messageData);
  
 }
 

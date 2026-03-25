@@ -36,17 +36,19 @@ io.on("connection", (socket) => {
     const { text, user_id, room_id } = data;
     const newMessage = await db.one(
       `INSERT INTO messages (text, user_id, room_id) 
-       VALUES ($1, $2, $3) 
-       RETURNING *, (SELECT username FROM users WHERE id = $2) as username`, 
+      VALUES ($1, $2, $3) 
+      RETURNING *, (SELECT username FROM users WHERE id = $2) as username`, 
       [text, user_id, room_id]
     );
     io.to(room_id).emit("receiveMessage", newMessage);
   });
   
   socket.on("deleteMessage", async (data) => {
+    const { id, userId } = data;
+    console.log(id, userId);
     const newMessages = await db.none(
-      `Delete from messages where id = $1 `, 
-      data
+      `Delete from messages where id = $1 and user_id = $2`, 
+      [id, userId]
     );
     // io.to(room_id).emit("previousMessages", newMessage);
   });
