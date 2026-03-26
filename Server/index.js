@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
   
   socket.on("deleteMessage", async (data) => {
     const { id, userId, roomId} = data;
-    console.log(id, userId, roomId);
+    // console.log(id, userId, roomId);
     
     const result = await db.result(
       `Delete from messages where id = $1 and user_id = $2`, 

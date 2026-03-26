@@ -21,7 +21,7 @@ async function createTables() {
         created_at TIMESTAMP DEFAULT NOW(),
     `);
 
-    console.log("Tables created successfully!");
+    // console.log("Tables created successfully!");
   } catch (error) {
     console.error("Error creating tables:", error);
   }

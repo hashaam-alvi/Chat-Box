@@ -45,17 +45,11 @@ export default function LoginPage({setUser}) {
     if ( password === confirmpassword) {
       const res = await axios.post(`${BASE_URL}/signup`, {username, password})
       const data = res.data;
-        console.log("in Pasword match")
       if (data.success) {
-        console.log("Signup successful", data.user);
         setIsSignup(false);
         // localStorage.setItem("user", JSON.stringify(data.user));
         // setUser(data.user);
-      } else {
-        // setIsError(true);
-        console.log("error occured");
-      }
-
+      } 
     }
     else {
       setIsError(true);

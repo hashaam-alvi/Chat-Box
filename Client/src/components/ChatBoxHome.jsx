@@ -23,7 +23,7 @@ useEffect(() => {
   socketRef.current = io(BASE_URL);
 
   socketRef.current.on("connect", () => {
-    console.log("Connected");
+    // console.log("Connected");
   });
 
 /*   socketRef.current.on("previousMessages", (msgs) => {
@@ -112,7 +112,7 @@ function deleteMessage(messageID) {
   roomId: activeRoom.id,
  }
 
-console.log(activeRoom.id);
+// console.log(activeRoom.id);
  socketRef.current.emit("deleteMessage", messageData);
  
 }
