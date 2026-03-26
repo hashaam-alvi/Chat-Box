@@ -89,6 +89,7 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
             </button>
           )}
         </div>
+        {activeRoom ? (
         <ChatUIComponent
           // key={messages.length}
           user={currentUserModel}
@@ -137,7 +138,8 @@ export default function ChatBoxPage({ isMobile, toggleSidebar, isOpen, activeRoo
               />
             ))} */}
           </MessagesDirective>
-        </ChatUIComponent>
+        </ChatUIComponent> 
+        ) : ( <h1 className="initialChatHome">Select a Chat</h1> )}
       </div>
     </div>
   );

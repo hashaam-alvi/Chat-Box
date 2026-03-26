@@ -21,10 +21,17 @@ body, html {
 }
 
 
-.chat-header{
+.chat-header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.initialChatHome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 .custom-sidebar {
