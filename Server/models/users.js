@@ -23,12 +23,20 @@ router.post("/login", async(req, res) => {
 
 router.post("/signup", async(req, res) => {
     const {username , password} = req.body;
-    const user = await db.oneOrNone("Insert into users (username,password) Values($1,$2)  RETURNING username",[username , password]);
-
-    res.json({
-        success:true,
-        user: {username: user.username},
-    });
+    try {
+        const user = await db.oneOrNone("Insert into users (username,password) Values($1,$2)  RETURNING username",[username , password]);
+    
+        res.json({
+            success:true,
+            user: {username: user.username},
+        });
+        
+    } catch (error) {
+        
+        res.json({
+            success:false,
+        });
+    }
 
 });
 

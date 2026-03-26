@@ -7,7 +7,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useState } from "react";
 import "./Login.css";
 
-export default function SignUpForm({ formData, handleInputChange, handleSubmit, isError, handleLogin }) {
+export default function SignUpForm({ formData, handleInputChange, handleSubmit, isError, isUserError, handleLogin }) {
   const [show, setShow] = useState(false);
   return (
     <div className="loginContainer">
@@ -41,6 +41,8 @@ export default function SignUpForm({ formData, handleInputChange, handleSubmit, 
             id="username"
             name="username"
             value={formData.username}
+            error={isUserError}
+            helperText={isUserError ? "Try a different User" : ""}
           />
 
           <TextField

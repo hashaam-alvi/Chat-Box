@@ -7,6 +7,7 @@ import BASE_URL from "../config.js"
 
 export default function LoginPage({setUser}) {
   let [isError, setIsError] = useState(false);
+  let [isUserError, setIsUserError] = useState(false);
   let [isSignup, setIsSignup] = useState(false);
   let [formData, setFormData] = useState({
     username: "",
@@ -49,7 +50,9 @@ export default function LoginPage({setUser}) {
         setIsSignup(false);
         // localStorage.setItem("user", JSON.stringify(data.user));
         // setUser(data.user);
-      } 
+      } else {
+        setIsUserError(true);
+      }
     }
     else {
       setIsError(true);
@@ -79,7 +82,7 @@ export default function LoginPage({setUser}) {
   return (
     <>
       {isSignup ? (
-          <SignUpForm formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSignupSubmit} isError={isError} handleLogin={handleLogin} />
+          <SignUpForm formData={formData} handleInputChange={handleInputChange} handleSubmit={handleSignupSubmit} isError={isError} isUserError={isUserError} handleLogin={handleLogin} />
       ) : (
         
         <LoginForm formData={formData} handleInputChange={handleInputChange} handleSubmit={handleLoginSubmit} isError={isError}  handleSignup={handleSignup} />
